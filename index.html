@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>I love you</title>
+
+    <style>
+      @font-face {
+        font-family: "Allura";
+        src: url(./fonts/Allura.ttf);
+      }
+      body {
+        font-family: "Allura", Courier, monospace;
+      }
+      canvas {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(0 0 0 / 0.2);
+      }
+      .sp-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        background: -webkit-radial-gradient(
+          rgb(0 0 0 / 0.1),
+          rgb(0 0 0 / 0.3) 35%,
+          rgb(0 0 0 / 0.7)
+        );
+        background: -moz-radial-gradient(
+          rgb(0 0 0 / 0.1),
+          rgb(0 0 0 / 0.3) 35%,
+          rgb(0 0 0 / 0.7)
+        );
+        background: -ms-radial-gradient(
+          rgb(0 0 0 / 0.1),
+          rgb(0 0 0 / 0.3) 35%,
+          rgb(0 0 0 / 0.7)
+        );
+        background: radial-gradient(
+          rgb(0 0 0 / 0.1),
+          rgb(0 0 0 / 0.3) 35%,
+          rgb(0 0 0 / 0.7)
+        );
+      }
+      .sp-content {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 1000;
+      }
+      .sp-container h2 {
+        position: absolute;
+        top: 50%;
+        line-height: 100px;
+        height: 90px;
+        margin-top: -68px;
+        font-size: 30px;
+        width: 100%;
+        text-align: center;
+        color: #fff0;
+        -webkit-animation: blurFadeInOut 3s ease-in backwards;
+        -moz-animation: blurFadeInOut 3s ease-in backwards;
+        -ms-animation: blurFadeInOut 3s ease-in backwards;
+        animation: blurFadeInOut 3s ease-in backwards;
+      }
+      .sp-container h2.frame-1 {
+        -webkit-animation-delay: 0s;
+        -moz-animation-delay: 0s;
+        -ms-animation-delay: 0s;
+        animation-delay: 0s;
+      }
+      .sp-container h2.frame-2 {
+        -webkit-animation-delay: 3s;
+        -moz-animation-delay: 3s;
+        -ms-animation-delay: 3s;
+        animation-delay: 3s;
+      }
+      .sp-container h2.frame-3 {
+        -webkit-animation-delay: 6s;
+        -moz-animation-delay: 6s;
+        -ms-animation-delay: 6s;
+        animation-delay: 6s;
+      }
+      .sp-container h2.frame-4 {
+        -webkit-animation: none;
+        -moz-animation: none;
+        -ms-animation: none;
+        animation: none;
+        color: #fff0;
+        text-shadow: 0 0 1px #fff;
+      }
+      .sp-container h2.frame-4 span {
+        -webkit-animation: blurFadeIn 3s ease-in 9s backwards;
+        -moz-animation: blurFadeIn 1s ease-in 9s backwards;
+        -ms-animation: blurFadeIn 3s ease-in 9s backwards;
+        animation: blurFadeIn 3s ease-in 9s backwards;
+        color: #ff92a5;
+        font-size: 3rem;
+        text-shadow: 0 0 1px #200;
+      }
+      .frame-4 span:not(:last-child) {
+        margin-right: 5px;
+      }
+      .sp-container h2.frame-4 span:nth-child(2) {
+        -webkit-animation-delay: 10s;
+        -moz-animation-delay: 10s;
+        -ms-animation-delay: 10s;
+        animation-delay: 10s;
+      }
+      .sp-container h2.frame-4 span:nth-child(3) {
+        -webkit-animation-delay: 11s;
+        -moz-animation-delay: 11s;
+        -ms-animation-delay: 11s;
+        animation-delay: 11s;
+      }
+      .sp-globe {
+        position: absolute;
+        width: 282px;
+        height: 273px;
+        left: 50%;
+        top: 50%;
+        margin: -137px 0 0 -141px;
+        -webkit-animation: fadeInBack 3.6s linear 11s backwards;
+        -moz-animation: fadeInBack 3.6s linear 11s backwards;
+        -ms-animation: fadeInBack 3.6s linear 11s backwards;
+        animation: fadeInBack 3.6s linear 11s backwards;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+        filter: alpha(opacity=30);
+        opacity: 0.3;
+        -webkit-transform: scale(5);
+        -moz-transform: scale(5);
+        -o-transform: scale(5);
+        -ms-transform: scale(5);
+        transform: scale(5);
+      }
+      @-webkit-keyframes blurFadeInOut {
+        0% {
+          opacity: 0;
+          text-shadow: 0 0 40px #fff;
+          -webkit-transform: scale(1.3);
+        }
+        20%,
+        75% {
+          opacity: 1;
+          text-shadow: 0 0 1px #fff;
+          -webkit-transform: scale(1);
+        }
+        100% {
+          opacity: 0;
+          text-shadow: 0 0 50px #fff;
+          -webkit-transform: scale(0);
+        }
+      }
+      @-webkit-keyframes blurFadeIn {
+        0% {
+          opacity: 0;
+          text-shadow: 0 0 40px #fff;
+          -webkit-transform: scale(1.3);
+        }
+        50% {
+          opacity: 0.5;
+          text-shadow: 0 0 10px #fff;
+          -webkit-transform: scale(1.1);
+        }
+        100% {
+          opacity: 1;
+          text-shadow: 0 0 1px #fff;
+          -webkit-transform: scale(1);
+        }
+      }
+      @-webkit-keyframes fadeInBack {
+        0% {
+          opacity: 0;
+          -webkit-transform: scale(0);
+        }
+        50% {
+          opacity: 0.4;
+          -webkit-transform: scale(2);
+        }
+        100% {
+          opacity: 0.2;
+          -webkit-transform: scale(5);
+        }
+      }
+      @-webkit-keyframes fadeInRotate {
+        0% {
+          opacity: 0;
+          -webkit-transform: scale(0) rotate(360deg);
+        }
+        100% {
+          opacity: 1;
+          -webkit-transform: scale(1) rotate(0deg);
+        }
+      }
+      @-moz-keyframes blurFadeInOut {
+        0% {
+          opacity: 0;
+          text-shadow: 0 0 40px #fff;
+          -moz-transform: scale(1.3);
+        }
+        20%,
+        75% {
+          opacity: 1;
+          text-shadow: 0 0 1px #fff;
+          -moz-transform: scale(1);
+        }
+        100% {
+          opacity: 0;
+          text-shadow: 0 0 50px #fff;
+          -moz-transform: scale(0);
+        }
+      }
+      @-moz-keyframes blurFadeIn {
+        0% {
+          opacity: 0;
+          text-shadow: 0 0 40px #fff;
+          -moz-transform: scale(1.3);
+        }
+        100% {
+          opacity: 1;
+          text-shadow: 0 0 1px #fff;
+          -moz-transform: scale(1);
+        }
+      }
+      @-moz-keyframes fadeInBack {
+        0% {
+          opacity: 0;
+          -moz-transform: scale(0);
+        }
+        50% {
+          opacity: 0.4;
+          -moz-transform: scale(2);
+        }
+        100% {
+          opacity: 0.2;
+          -moz-transform: scale(5);
+        }
+      }
+      @-moz-keyframes fadeInRotate {
+        0% {
+          opacity: 0;
+          -moz-transform: scale(0) rotate(360deg);
+        }
+        100% {
+          opacity: 1;
+          -moz-transform: scale(1) rotate(0deg);
+        }
+      }
+      @keyframes blurFadeInOut {
+        0% {
+          opacity: 0;
+          text-shadow: 0 0 40px #fff;
+          transform: scale(1.3);
+        }
+        20%,
+        75% {
+          opacity: 1;
+          text-shadow: 0 0 1px #fff;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 0;
+          text-shadow: 0 0 50px #fff;
+          transform: scale(0);
+        }
+      }
+      @keyframes blurFadeIn {
+        0% {
+          opacity: 0;
+          text-shadow: 0 0 40px #fff;
+          transform: scale(1.3);
+        }
+        50% {
+          opacity: 0.5;
+          text-shadow: 0 0 10px #fff;
+          transform: scale(1.1);
+        }
+        100% {
+          opacity: 1;
+          text-shadow: 0 0 1px #fff;
+          transform: scale(1);
+        }
+      }
+      @keyframes fadeInBack {
+        0% {
+          opacity: 0;
+          transform: scale(0);
+        }
+        50% {
+          opacity: 0.4;
+          transform: scale(2);
+        }
+        100% {
+          opacity: 0.2;
+          transform: scale(5);
+        }
+      }
+      @keyframes fadeInRotate {
+        0% {
+          opacity: 0;
+          transform: scale(0) rotate(360deg);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1) rotate(0deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="heart"></canvas>
+    <div class="sp-container">
+      <div class="sp-content">
+        <div class="sp-globe"></div>
+        <h2 class="frame-1">Em ơi</h2>
+        <h2 class="frame-2">anh yêu em, anh yêu em...</h2>
+        <h2 class="frame-3">Người tình không chung giường chiếu</h2>
+        <h2 class="frame-4">
+          <span>Vũ</span>
+          <span>Thị</span>
+          <span>Cẩm Nhung</span>
+        </h2>
+      </div>
+    </div>
+
+    <!--JavaScript-->
+    <script>
+      (window.requestAnimationFrame =
+        window.__requestAnimationFrame ||
+        window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (e, t) {
+          var r = t.__lastTime;
+          void 0 === r && (r = 0);
+          var a = Date.now(),
+            $ = Math.max(1, 33 - (a - r));
+          window.setTimeout(e, $), (t.__lastTime = a + $);
+        }),
+        (window.isDevice =
+          /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(
+            (
+              navigator.userAgent ||
+              navigator.vendor ||
+              window.opera
+            ).toLowerCase()
+          ));
+      var loaded = !1,
+        init = function () {
+          if (!loaded) {
+            loaded = !0;
+            var e,
+              t = window.isDevice,
+              r = t ? 0.5 : 1,
+              a = document.getElementById("heart"),
+              $ = a.getContext("2d"),
+              i = (a.width = r * innerWidth),
+              n = (a.height = r * innerHeight),
+              o = Math.random;
+            ($.fillStyle = "rgba(0,0,0,1)"), $.fillRect(0, 0, i, n);
+            var c = function (e) {
+                return [
+                  Math.pow(Math.sin(e), 3),
+                  -(
+                    15 * Math.cos(e) -
+                    5 * Math.cos(2 * e) -
+                    2 * Math.cos(3 * e) -
+                    Math.cos(4 * e)
+                  ),
+                ];
+              },
+              l = function (e, t, r, a, $) {
+                return [a + e[0] * t, $ + e[1] * r];
+              };
+            window.addEventListener("resize", function () {
+              (i = a.width = r * innerWidth),
+                (n = a.height = r * innerHeight),
+                ($.fillStyle = "rgba(0,0,0,1)"),
+                $.fillRect(0, 0, i, n);
+            });
+            var f = t ? 20 : 50,
+              d = [],
+              m = t ? 0.3 : 0.1;
+            for (e = 0; e < 2 * Math.PI; e += m) d.push(l(c(e), 210, 13, 0, 0));
+            for (e = 0; e < 2 * Math.PI; e += m) d.push(l(c(e), 150, 9, 0, 0));
+            for (e = 0; e < 2 * Math.PI; e += m) d.push(l(c(e), 90, 5, 0, 0));
+            var v = d.length,
+              _ = [],
+              u = function (t, r) {
+                for (e = 0; e < d.length; e++)
+                  (_[e] = []),
+                    (_[e][0] = t * d[e][0] + i / 2),
+                    (_[e][1] = r * d[e][1] + n / 2);
+              },
+              y = [];
+            for (e = 0; e < v; e++) {
+              var h = o() * i,
+                q = o() * n;
+              y[e] = {
+                vx: 0,
+                vy: 0,
+                R: 2,
+                speed: o() + 5,
+                q: ~~(o() * v),
+                D: 2 * (e % 2) - 1,
+                force: 0.2 * o() + 0.7,
+                f:
+                  "hsla(0," +
+                  ~~(40 * o() + 50) +
+                  "%," +
+                  ~~(60 * o() + 20) +
+                  "%,.3)",
+                trace: [],
+              };
+              for (var g = 0; g < f; g++) y[e].trace[g] = { x: h, y: q };
+            }
+            var p = { traceK: 0.4, timeDelta: 0.01 },
+              x = 0,
+              A = function () {
+                var t = -Math.cos(x);
+                for (
+                  u((1 + t) * 0.5, (1 + t) * 0.5),
+                    x +=
+                      (0 > Math.sin(x) ? 9 : t > 0.8 ? 0.2 : 1) * p.timeDelta,
+                    $.fillStyle = "rgba(0,0,0,.1)",
+                    $.fillRect(0, 0, i, n),
+                    e = y.length;
+                  e--;
+
+                ) {
+                  var r = y[e],
+                    c = _[r.q],
+                    l = r.trace[0].x - c[0],
+                    f = r.trace[0].y - c[1],
+                    d = Math.sqrt(l * l + f * f);
+                  for (
+                    10 > d &&
+                      (0.95 < o()
+                        ? (r.q = ~~(o() * v))
+                        : (0.99 < o() && (r.D *= -1),
+                          (r.q += r.D),
+                          (r.q %= v),
+                          0 > r.q && (r.q += v))),
+                      r.vx += (-l / d) * r.speed,
+                      r.vy += (-f / d) * r.speed,
+                      r.trace[0].x += r.vx,
+                      r.trace[0].y += r.vy,
+                      r.vx *= r.force,
+                      r.vy *= r.force,
+                      g = 0;
+                    g < r.trace.length - 1;
+
+                  ) {
+                    var m = r.trace[g],
+                      h = r.trace[++g];
+                    (h.x -= p.traceK * (h.x - m.x)),
+                      (h.y -= p.traceK * (h.y - m.y));
+                  }
+                  for (g = 0, $.fillStyle = r.f; g < r.trace.length; g++)
+                    $.fillRect(r.trace[g].x, r.trace[g].y, 1, 1);
+                }
+                window.requestAnimationFrame(A, a);
+              };
+            A();
+          }
+        },
+        s = document.readyState;
+      "complete" === s || "loaded" === s || "interactive" === s
+        ? init()
+        : document.addEventListener("DOMContentLoaded", init, !1);
+    </script>
+  </body>
+</html>
